@@ -4,11 +4,10 @@ import com.lastminute.exercise.domain.Product;
 import com.lastminute.exercise.domain.ShoppingBasket;
 import com.lastminute.exercise.ports.ProductGenerator;
 import com.lastminute.exercise.ports.ShoppingBasketGeneretor;
-import com.lastminute.exercise.util.FileUtil;
+import com.lastminute.exercise.util.InputReaderDataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ShoppingBasketGeneretorImpl implements ShoppingBasketGeneretor {
     @Override
     public ShoppingBasket createShoppingBasketFromFile(String fileName)  {
         logger.info("Create shopping basket from file: "+fileName);
-        List<String> detilsShoppingBasket = FileUtil.readFileLineByLine(fileName);
+        List<String> detilsShoppingBasket = InputReaderDataUtil.readFileLineByLine(fileName);
         String basketId = detilsShoppingBasket.get(0);
         detilsShoppingBasket.remove(0);
         List<Product> products = new ArrayList();

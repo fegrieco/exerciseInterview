@@ -1,26 +1,28 @@
 package com.lastminute.exercise.util;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class FileUtil {
+public class InputReaderDataUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(InputReaderDataUtil.class);
 
     public static List<String> readFileLineByLine (String fileName)  {
 
         BufferedReader reader;
         ArrayList lines = new ArrayList();
         try {
-            InputStreamReader streamReader = new InputStreamReader (FileUtil.class.getClassLoader().getResourceAsStream(fileName));
+            InputStreamReader streamReader = new InputStreamReader (InputReaderDataUtil.class.getClassLoader().getResourceAsStream(fileName));
             reader = new BufferedReader(streamReader);
             String line = reader.readLine();
             while (line != null) {
@@ -33,6 +35,16 @@ public class FileUtil {
            logger.error("error read file",e);
         }
         return  lines;
+    }
+
+    public static List<String> readerFromJson(String json){
+        JsonParser parser = new JsonParser();
+        JsonObject obj = parser.parse(json).getAsJsonObject();
+        JsonArray arrayElements = obj.getAsJsonArray("shopping_basket");
+        List<String> lines = new ArrayList<>();
+       arrayElements.forEach(elem ->lines.add(elem.getAsString()));
+        return lines ;
+
     }
 
 
