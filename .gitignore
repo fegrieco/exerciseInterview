@@ -1,5 +1,4 @@
 #Ingore Idea files
-./.idea/*
-
+/.idea/
 #Ingore target Directory
-./target/*
+/target/
